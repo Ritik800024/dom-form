@@ -30,12 +30,12 @@
    </div>
   </div>
   <script>
-    document.title='My page'
-    var ht=document.getElementById('main-header')
-    ht.style.borderBottom='solid 3px black'
-    var AI=document.querySelector('.title')
-    AI.style.fontStyle='bold'
-    AI.style.color='green'
+    var items=document.getElementsByClassName('list-group-item')
+    items[2].style.backgroundColor='green'
+    for(var i=0;i<items.length;i++){
+        items[i].style.fontWeight='bold'
+        items[i].style.color='red'
+    }
   </script>
 
 </body>
