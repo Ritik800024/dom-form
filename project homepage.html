@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense tracker</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+<body>
+    <div>
+        <h1>Expense Tracker</h1><hr>
+    </div>
+    <form class="row gy-2 gx-3 align-items-center" id="form-content">
+        <div class="col-auto">
+          <label class="visually-hidden" for="autoSizingInput">Expense amount</label>
+          <input type="number" class="form-control" id="autoSizingInput" placeholder="Expense amount">
+        </div>
+        <div class="col-auto">
+          <label class="visually-hidden" for="autoSizingInputGroup">Discription</label>
+          <div class="input-group">
+            <input type="text" class="form-control" id="autoSizingInputGroup" placeholder="Discription">
+          </div>
+        </div>
+        <div class="col-auto">
+          <label class="visually-hidden" for="autoSizingSelect">Preference</label>
+          <select class="form-select" id="autoSizingSelect">
+            <option selected>Type</option>
+            <option value="Households">Households</option>
+            <option value="Personal">Personal</option>
+            <option value="Educational">Educational</option>
+          </select>
+        </div>
+        <div class="col-auto">
+          <button type="submit" class="btn btn-primary">Add expense</button>
+        </div>
+      </form><hr>
+      <div id="list-div">
+        <ul id="list-item">
+
+        </ul>
+      </div>
+      <script>
+        var info=document.getElementById('list-item')
+        var form=document.getElementById('form-content')
+        form.addEventListener('submit', additem);
+        info.addEventListener('click',deleteinfo)
+        function additem(e){
+            e.preventDefault()
+            var examount=document.getElementById('autoSizingInput').value
+            var exdisc=document.getElementById('autoSizingInputGroup').value
+            var extype=document.getElementById('autoSizingSelect').value
+            var li=document.createElement('li')
+            li.innerHTML = extype
+            li.appendChild(document.createTextNode('-'))
+            li.appendChild(document.createTextNode(examount))
+            li.appendChild(document.createTextNode('-'))
+            li.appendChild(document.createTextNode(exdisc))
+            li.appendChild(document.createTextNode('-'))
+            var deleteBtn = document.createElement('button');
+            var editbtn=document.createElement('button');
+            editbtn.setAttribute("id","edit-btn")
+            editbtn.appendChild(document.createTextNode('Edit'));
+            editbtn.addEventListener('click', function edit(e){
+            var name=document.getElementById('fname')
+            var email=document.getElementById('eml')
+            var phone=document.getElementById('phn')
+            name.setItem(e.name)
+            email.setItem(e.email)
+            phone.setItem(e.phone)
+        })
+            li.appendChild(editbtn)
+            deleteBtn.appendChild(document.createTextNode('delete'));
+            li.appendChild(deleteBtn)
+            info.appendChild(li)
+            let obj1={
+                examount,exdisc,extype
+            }
+            let obj2=JSON.stringify(obj1);
+            localStorage.setItem("obj",obj2)    
+        }
+        function deleteinfo(e){
+            e.preventDefault()
+            localStorage.removeItem("obj")
+            var li=e.target.parentElement;
+            info.removeChild(li)
+            }
+
+      </script>
+</body>
+</html>
