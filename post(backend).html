@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New booking app</title>
+</head>
+<body>
+    <div id="cont">
+        <form id="form-content">
+            <label for="fname">Name</label><br>
+            <input type="text" id="fname"name="NAME"><br>
+            <label for="eml">Email</label><br>
+            <input type="email" id="eml"name="EMAIL"><br>
+            <label for="phn">Phone</label><br>
+            <input type="tel" id="phn"name="PHONE"><br>
+            <input type="submit" value="submit">
+            <ul id="list">
+    
+            </ul>
+        </form>
+        </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+    <script>
+        var form=document.getElementById("form-content")
+        form.addEventListener("submit",additem)
+        function additem(){
+            event.preventDefault()
+            const name=event.target.NAME.value
+            const email=event.target.EMAIL.value
+            const phone=event.target.PHONE.value
+            axios.post('https://crudcrud.com/api/1fbdc0fbfabb48e7b8aabdf714935812/bookingdata',
+      {
+        name,
+        email,
+        phone
+      }
+    )
+    .then((res) => {showoutput(res.data)})
+    .catch((err) => {console.error(err)});
+        }
+
+        function showoutput(object){
+            var info=document.getElementById("list")
+            var li=document.createElement('li')
+            li.appendChild(document.createTextNode(object["name"]))
+            li.appendChild(document.createTextNode('-'))
+            li.appendChild(document.createTextNode(object["email"]))
+            li.appendChild(document.createTextNode('-'))
+            li.appendChild(document.createTextNode(object["phone"]))
+            var deleteBtn = document.createElement('button');
+            var editbtn=document.createElement('button');
+            editbtn.appendChild(document.createTextNode('Edit'));
+            li.appendChild(editbtn)
+            deleteBtn.appendChild(document.createTextNode('delete'));
+            li.appendChild(deleteBtn)
+            info.appendChild(li)
+        }
+    </script>
+</body>
+</html>
